@@ -1,6 +1,6 @@
 # simple-order-book
 
-<img src="./order-book/assets/order-book-landing.png" width="500" alt="Order Book App Interface">
+<img src="./order-book/assets/order-book-landing.png" width="300" alt="Order Book App Interface">
 
 ## Description
 
