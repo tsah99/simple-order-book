@@ -1,6 +1,6 @@
 # simple-order-book
 
-![Order Book App Interface](./assets/order-book-landing.png)
+![Order Book App Interface](./order-book/assets/order-book-landing.png)
 
 ## Description
 
