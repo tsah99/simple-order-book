@@ -15,6 +15,7 @@ export default function ItemGrid() {
   const [items, setItems] = useState<IItemCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     fetchItems();
@@ -22,23 +23,25 @@ export default function ItemGrid() {
 
   const fetchItems = async () => {
     try {
+      setRefreshing(true);
       const response = await fetch('https://retoolapi.dev/f0ee0v/items');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
       setItems(data);
-      setLoading(false);
     } catch (err) {
       setError('Failed to fetch items. Please try again later.');
+    } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
   if (loading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#436175" />
       </View>
     );
   }
@@ -58,6 +61,12 @@ export default function ItemGrid() {
       keyExtractor={(item) => item.id.toString()}
       numColumns={2}
       contentContainerStyle={styles.container}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={fetchItems}
+        />
+      }
     />
   );
 }
