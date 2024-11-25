@@ -1,5 +1,7 @@
 # simple-order-book
 
+![Order Book App Interface](./assets/order-book-landing.png)
+
 ## Description
 
 This is a mock "order book" app built with React Native. It's a simple app that displays a list of items and allows you to search for items and add them to an order.
