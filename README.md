@@ -4,6 +4,8 @@
 
 This is a mock "order book" app built with React Native. It's a simple app that displays a list of items and allows you to search for items and add them to an order.
 
+See Spec for more details: https://join-attain.notion.site/Attain-Founding-Engineer-Take-Home-145a9f2b7e3880a89f0beae9ebfec160
+
 ## Features
 
 - Display a list of items
