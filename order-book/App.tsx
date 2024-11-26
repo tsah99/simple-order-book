@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, } from 'react-native';
-import { Header, ItemGrid } from './components'
+import { StyleSheet, View } from 'react-native';
+import { Header, ItemGrid } from './components';
 
 export default function App() {
   return (

@@ -1,5 +1,11 @@
 import React, { useState, useEffect, memo } from 'react';
-import { FlatList, StyleSheet, View, ActivityIndicator, Text } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  Text,
+} from 'react-native';
 import ItemCard from './ItemCard';
 import { IItemCard } from './ItemCard';
 
@@ -54,7 +60,7 @@ export default function ItemGrid() {
       contentContainerStyle={styles.container}
     />
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {},
@@ -69,4 +75,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-

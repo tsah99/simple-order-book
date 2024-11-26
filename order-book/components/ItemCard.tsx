@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import { PlusCircleIcon } from 'lucide-react-native';
 import ItemModal from './ItemModal';
 import { sharedStyles } from '../styles/sharedStyles';
@@ -19,7 +26,7 @@ interface ItemCardProps {
 }
 
 const { width } = Dimensions.get('window');
-const cardWidth = (width - (32 * 3)) / 2; // Subtract total horizontal padding (32px * 3 for left, right, and between cards)
+const cardWidth = (width - 32 * 3) / 2; // Subtract total horizontal padding (32px * 3 for left, right, and between cards)
 export default function ItemCard({ item }: ItemCardProps) {
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -28,7 +35,9 @@ export default function ItemCard({ item }: ItemCardProps) {
     return null;
   }
 
-  const hasSale: boolean = !!(item.discounted_price && item.discounted_price !== item.price);
+  const hasSale: boolean = !!(
+    item.discounted_price && item.discounted_price !== item.price
+  );
 
   const [imageSource, setImageSource] = React.useState({ uri: item.image });
 
@@ -39,28 +48,41 @@ export default function ItemCard({ item }: ItemCardProps) {
 
   return (
     <View style={styles.card}>
-      <TouchableOpacity style={styles.plusIcon} onPress={() => setModalVisible(true)}>
+      <TouchableOpacity
+        style={styles.plusIcon}
+        onPress={() => setModalVisible(true)}
+      >
         <PlusCircleIcon size={30} color="white" fill="#436175" />
       </TouchableOpacity>
-      {hasSale && (
-        <Text style={styles.salePill}>Sale</Text>
-      )}
-      <Image 
-        source={imageSource} 
-        style={styles.image} 
-        resizeMode="cover" 
+      {hasSale && <Text style={styles.salePill}>Sale</Text>}
+      <Image
+        source={imageSource}
+        style={styles.image}
+        resizeMode="cover"
         onError={handleImageError}
       />
       <View style={styles.content}>
-        <Text style={sharedStyles.supplier} numberOfLines={1}>{item.supplier || 'N/A'}</Text>
-        <Text style={styles.name} numberOfLines={2}>{item.name || 'N/A'}</Text>
+        <Text style={sharedStyles.supplier} numberOfLines={1}>
+          {item.supplier || 'N/A'}
+        </Text>
+        <Text style={styles.name} numberOfLines={2}>
+          {item.name || 'N/A'}
+        </Text>
         <View style={sharedStyles.priceContainer}>
-          {!item.discounted_price && item.price && <Text style={sharedStyles.price}>${parseFloat(item.price).toFixed(2)}</Text>}
-          {hasSale && (
-              <Text style={sharedStyles.discountedPrice}>${parseFloat(item.discounted_price).toFixed(2)}</Text>
+          {!item.discounted_price && item.price && (
+            <Text style={sharedStyles.price}>
+              ${parseFloat(item.price).toFixed(2)}
+            </Text>
           )}
           {hasSale && (
-            <Text style={sharedStyles.slashedPrice}>${parseFloat(item.price).toFixed(2)}</Text>
+            <Text style={sharedStyles.discountedPrice}>
+              ${parseFloat(item.discounted_price).toFixed(2)}
+            </Text>
+          )}
+          {hasSale && (
+            <Text style={sharedStyles.slashedPrice}>
+              ${parseFloat(item.price).toFixed(2)}
+            </Text>
           )}
         </View>
       </View>
@@ -74,7 +96,7 @@ export default function ItemCard({ item }: ItemCardProps) {
       />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   salePill: {
@@ -131,22 +153,22 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingTop: 35,
     paddingBottom: 35,
     paddingLeft: 10,
     paddingRight: 10,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   modalImage: {
     width: '33%',
@@ -181,4 +203,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
