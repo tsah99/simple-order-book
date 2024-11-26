@@ -34,14 +34,19 @@ export default function ItemModal({
   quantity,
   handleQuantityChange,
 }: ItemModalProps) {
+  function handleModalClose() {
+    setModalVisible(false);
+    handleQuantityChange(0);
+  }
+
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={modalVisible}
-      onRequestClose={() => setModalVisible(!modalVisible)}
+      onRequestClose={handleModalClose}
     >
-      <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+      <TouchableWithoutFeedback onPress={handleModalClose}>
         <View style={styles.modalOuter}>
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
             <View style={styles.modalView}>
@@ -134,7 +139,7 @@ export default function ItemModal({
               />
               <TouchableOpacity
                 style={styles.buttonClose}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={handleModalClose}
               >
                 <XIcon size={24} color="#436175" strokeWidth={3} />
               </TouchableOpacity>
