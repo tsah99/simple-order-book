@@ -1,6 +1,18 @@
 import { StyleSheet } from 'react-native';
 
 export const sharedStyles = StyleSheet.create({
+  itemName: {
+    fontSize: 12,
+    color: '#436175',
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  modalTextItemName: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#436175',
+    flexWrap: 'wrap',
+  },
   supplier: {
     fontSize: 10,
     color: '#666',

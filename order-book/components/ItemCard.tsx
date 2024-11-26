@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -29,6 +29,11 @@ const { width } = Dimensions.get('window');
 const cardWidth = (width - 32 * 3) / 2; // Subtract total horizontal padding (32px * 3 for left, right, and between cards)
 export default function ItemCard({ item }: ItemCardProps) {
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [quantity, setQuantity] = useState(0);
+
+  const handleQuantityChange = (newQuantity: number) => {
+    setQuantity(newQuantity);
+  };
 
   // ensure a price is present
   if (!item.price && !item.discounted_price) {
@@ -65,7 +70,7 @@ export default function ItemCard({ item }: ItemCardProps) {
         <Text style={sharedStyles.supplier} numberOfLines={1}>
           {item.supplier || 'N/A'}
         </Text>
-        <Text style={styles.name} numberOfLines={2}>
+        <Text style={sharedStyles.itemName} numberOfLines={2}>
           {item.name || 'N/A'}
         </Text>
         <View style={sharedStyles.priceContainer}>
@@ -93,6 +98,8 @@ export default function ItemCard({ item }: ItemCardProps) {
         imageSource={imageSource}
         cardWidth={cardWidth}
         hasSale={hasSale}
+        quantity={quantity}
+        handleQuantityChange={handleQuantityChange}
       />
     </View>
   );
@@ -135,12 +142,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 8,
-  },
-  name: {
-    fontSize: 12,
-    color: '#436175',
-    fontWeight: 'bold',
-    marginBottom: 4,
   },
   plusIcon: {
     position: 'absolute',
