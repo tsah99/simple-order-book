@@ -4,21 +4,21 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 interface QuantityPickerProps {
   label: string;
   quantity: number;
-  onQuantityChange: (quantity: number) => void;
+  toggleNewQuantity: (quantity: number) => void;
 }
 
 export default function QuantityPicker({
   label,
   quantity,
-  onQuantityChange,
+  toggleNewQuantity,
 }: QuantityPickerProps) {
   const incrementQuantity = () => {
-    onQuantityChange(quantity + 1);
+    toggleNewQuantity(quantity + 1);
   };
 
   const decrementQuantity = () => {
     if (quantity > 0) {
-      onQuantityChange(quantity - 1);
+      toggleNewQuantity(quantity - 1);
     }
   };
 

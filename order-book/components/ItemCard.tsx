@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -32,6 +32,7 @@ export default function ItemCard({ item }: ItemCardProps) {
   const [quantity, setQuantity] = useState(0);
 
   const handleQuantityChange = (newQuantity: number) => {
+    console.log(`New quantity: ${newQuantity}`);
     setQuantity(newQuantity);
   };
 

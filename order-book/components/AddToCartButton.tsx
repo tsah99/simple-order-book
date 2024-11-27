@@ -9,33 +9,58 @@ import { IItemCard } from './ItemCard';
 
 const { width } = Dimensions.get('window');
 
-export default function AddToCart({
+export default function AddToCartButton({
   quantity,
+  previousQuantity,
   item,
+  onQuantitySubmit,
+  closeModal,
 }: {
   quantity: number;
+  previousQuantity: number;
   item: IItemCard;
+  onQuantitySubmit: (quantity: number) => void;
+  closeModal: () => void;
 }) {
   const handleSubmit = () => {
-    // Placeholder for actual submission logic
-    // This could be an API call or local state update depending on your application architecture
+    onQuantitySubmit(quantity);
     console.log(`Submitting ${quantity} of item ${item.id} to cart`);
-    Alert.alert(
-      'Added to Cart',
-      `Added ${quantity} orders of ${item.name} to the cart.`
-    );
+    if (previousQuantity === 0) {
+      Alert.alert(
+        'Added to Cart',
+        `Added ${quantity} orders of ${item.name} to the cart.`
+      );
+    } else {
+      Alert.alert(
+        'Updated Cart',
+        `You have ${quantity} orders of ${item.name} in the cart.`
+      );
+    }
+    closeModal();
   };
 
+  console.log(
+    `Previous quantity: ${previousQuantity}, Current quantity: ${quantity}`
+  );
+
   return (
-    <TouchableOpacity onPress={handleSubmit} style={styles.addToCartButton}>
-      <Text style={styles.addToCartText}>Add to Cart</Text>
+    <TouchableOpacity
+      onPress={handleSubmit}
+      style={[
+        styles.button,
+        previousQuantity === 0 && quantity === 0 && styles.disabledButton,
+      ]}
+      disabled={previousQuantity === 0 && quantity === 0}
+    >
+      <Text style={styles.buttonText}>
+        {previousQuantity === 0 ? 'Add to Cart' : 'Update Cart'}
+      </Text>
     </TouchableOpacity>
   );
 }
 
-// Add styles for the Add to Cart button
 const styles = StyleSheet.create({
-  addToCartButton: {
+  button: {
     width: width * 0.6,
     backgroundColor: '#9fbcd8',
     padding: 10,
@@ -43,9 +68,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
   },
-  addToCartText: {
+  buttonText: {
     color: '#436175',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  disabledButton: {
+    backgroundColor: '#ccc',
   },
 });

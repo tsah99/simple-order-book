@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -12,7 +12,7 @@ import { XIcon } from 'lucide-react-native';
 import { IItemCard } from './ItemCard';
 import { sharedStyles } from '../styles/sharedStyles';
 import QuantityPicker from './QuantityPicker';
-import AddToCart from './AddToCartButton';
+import AddToCartButton from './AddToCartButton';
 
 interface ItemModalProps {
   item: IItemCard;
@@ -35,10 +35,16 @@ export default function ItemModal({
   quantity,
   handleQuantityChange,
 }: ItemModalProps) {
+  console.log(`Quantity in ItemModal: ${quantity}`);
+  const [adjustQuantity, setAdjustQuantity] = useState(quantity || 0);
+
   function handleModalClose() {
     setModalVisible(false);
-    handleQuantityChange(0);
   }
+
+  useEffect(() => {
+    setAdjustQuantity(quantity);
+  }, [quantity]);
 
   return (
     <Modal
@@ -135,10 +141,16 @@ export default function ItemModal({
               </View>
               <QuantityPicker
                 label="Quantity"
-                quantity={quantity}
-                onQuantityChange={handleQuantityChange}
+                quantity={adjustQuantity}
+                toggleNewQuantity={setAdjustQuantity}
               />
-              <AddToCart quantity={quantity} item={item} />
+              <AddToCartButton
+                quantity={adjustQuantity}
+                previousQuantity={quantity}
+                item={item}
+                onQuantitySubmit={handleQuantityChange}
+                closeModal={handleModalClose}
+              />
               <TouchableOpacity
                 style={styles.buttonClose}
                 onPress={handleModalClose}
