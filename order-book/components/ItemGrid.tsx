@@ -63,10 +63,7 @@ export default function ItemGrid() {
       numColumns={2}
       contentContainerStyle={styles.container}
       refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={fetchItems}
-        />
+        <RefreshControl refreshing={refreshing} onRefresh={fetchItems} />
       }
     />
   );
