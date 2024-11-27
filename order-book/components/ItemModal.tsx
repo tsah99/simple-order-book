@@ -12,6 +12,7 @@ import { XIcon } from 'lucide-react-native';
 import { IItemCard } from './ItemCard';
 import { sharedStyles } from '../styles/sharedStyles';
 import QuantityPicker from './QuantityPicker';
+import AddToCart from './AddToCartButton';
 
 interface ItemModalProps {
   item: IItemCard;
@@ -137,6 +138,7 @@ export default function ItemModal({
                 quantity={quantity}
                 onQuantityChange={handleQuantityChange}
               />
+              <AddToCart quantity={quantity} item={item} />
               <TouchableOpacity
                 style={styles.buttonClose}
                 onPress={handleModalClose}

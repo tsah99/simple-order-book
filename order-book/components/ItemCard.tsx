@@ -57,7 +57,11 @@ export default function ItemCard({ item }: ItemCardProps) {
         style={styles.plusIcon}
         onPress={() => setModalVisible(true)}
       >
-        <PlusCircleIcon size={30} color="white" fill="#436175" />
+        {quantity ? (
+          <Text style={sharedStyles.circleText}>{quantity}</Text>
+        ) : (
+          <PlusCircleIcon size={40} color="white" fill="#436175" />
+        )}
       </TouchableOpacity>
       {hasSale && <Text style={styles.salePill}>Sale</Text>}
       <Image
