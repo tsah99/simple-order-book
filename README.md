@@ -2,6 +2,12 @@
 
 <img src="./order-book/assets/order-book-landing.png" width="300" alt="Order Book App Interface">
 
+> Scrollable order book interface
+
+<img src="./order-book/assets/order-modal.png" width="300" alt="Order Modal">
+
+> (Work in progress, "add to cart" button not yet implemented)
+
 ## Description
 
 This is a mock "order book" app built with React Native. It's a simple app that displays a list of items and allows you to search for items and add them to an order.
