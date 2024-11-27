@@ -1,20 +1,19 @@
 import React, { useState, useEffect, memo } from 'react';
-import { FlatList, StyleSheet, View, ActivityIndicator, Text, RefreshControl } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  Text,
+  RefreshControl,
+} from 'react-native';
 import ItemCard from './ItemCard';
+import { IItemCard } from './ItemCard';
 
 const MemoizedItemCard = memo(ItemCard);
 
-interface Item {
-  id: number;
-  name: string;
-  supplier: string;
-  price: string;
-  discounted_price: string;
-  image: string;
-}
-
 export default function ItemGrid() {
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<IItemCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -64,14 +63,11 @@ export default function ItemGrid() {
       numColumns={2}
       contentContainerStyle={styles.container}
       refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={fetchItems}
-        />
+        <RefreshControl refreshing={refreshing} onRefresh={fetchItems} />
       }
     />
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {},
@@ -86,4 +82,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
