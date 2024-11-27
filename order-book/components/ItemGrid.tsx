@@ -5,6 +5,7 @@ import {
   View,
   ActivityIndicator,
   Text,
+  RefreshControl,
 } from 'react-native';
 import ItemCard from './ItemCard';
 import { IItemCard } from './ItemCard';
