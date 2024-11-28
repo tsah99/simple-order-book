@@ -35,7 +35,6 @@ export default function ItemModal({
   quantity,
   handleQuantityChange,
 }: ItemModalProps) {
-  console.log(`Quantity in ItemModal: ${quantity}`);
   const [adjustQuantity, setAdjustQuantity] = useState(quantity || 0);
 
   function handleModalClose() {

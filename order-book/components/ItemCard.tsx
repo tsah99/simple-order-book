@@ -28,12 +28,14 @@ interface ItemCardProps {
 const { width } = Dimensions.get('window');
 const cardWidth = (width - 32 * 3) / 2; // Subtract total horizontal padding (32px * 3 for left, right, and between cards)
 export default function ItemCard({ item }: ItemCardProps) {
+  // TODO: pass through "add to cart" function from ItemGrid component
   const [modalVisible, setModalVisible] = React.useState(false);
   const [quantity, setQuantity] = useState(0);
 
   const handleQuantityChange = (newQuantity: number) => {
     console.log(`New quantity: ${newQuantity}`);
     setQuantity(newQuantity);
+    // add to cart function here
   };
 
   // ensure a price is present
@@ -48,7 +50,6 @@ export default function ItemCard({ item }: ItemCardProps) {
   const [imageSource, setImageSource] = React.useState({ uri: item.image });
 
   const handleImageError = (e: any) => {
-    console.log('Image error: ', e);
     setImageSource(require('../assets/no-image-icon.png'));
   };
 

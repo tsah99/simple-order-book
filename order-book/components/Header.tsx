@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { Search, RefreshCw } from 'lucide-react-native';
+import { Search } from 'lucide-react-native';
 
 export default function Header() {
   return (
