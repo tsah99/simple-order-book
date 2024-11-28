@@ -70,7 +70,12 @@ export default function ItemGrid() {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: '#9fbcd8',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: 80,
+  },
   centered: {
     flex: 1,
     justifyContent: 'center',
