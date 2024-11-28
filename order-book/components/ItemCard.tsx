@@ -56,47 +56,48 @@ export default function ItemCard({ item }: ItemCardProps) {
   return (
     <View style={styles.card}>
       <TouchableOpacity
-        style={styles.plusIcon}
         onPress={() => setModalVisible(true)}
       >
-        {quantity ? (
-          <Text style={sharedStyles.circleText}>{quantity}</Text>
-        ) : (
-          <PlusCircleIcon size={40} color="white" fill="#436175" />
-        )}
-      </TouchableOpacity>
-      {hasSale && <Text style={styles.salePill}>Sale</Text>}
-      <Image
-        source={imageSource}
-        style={styles.image}
-        resizeMode="cover"
-        onError={handleImageError}
-      />
-      <View style={styles.content}>
-        <Text style={sharedStyles.supplier} numberOfLines={1}>
-          {item.supplier || 'N/A'}
-        </Text>
-        <Text style={sharedStyles.itemName} numberOfLines={2}>
-          {item.name || 'N/A'}
-        </Text>
-        <View style={sharedStyles.priceContainer}>
-          {!item.discounted_price && item.price && (
-            <Text style={sharedStyles.price}>
-              ${parseFloat(item.price).toFixed(2)}
-            </Text>
-          )}
-          {hasSale && (
-            <Text style={sharedStyles.discountedPrice}>
-              ${parseFloat(item.discounted_price).toFixed(2)}
-            </Text>
-          )}
-          {hasSale && (
-            <Text style={sharedStyles.slashedPrice}>
-              ${parseFloat(item.price).toFixed(2)}
-            </Text>
+        <View style={styles.plusIcon} >
+          {quantity ? (
+            <Text style={sharedStyles.circleText}>{quantity}</Text>
+          ) : (
+            <PlusCircleIcon size={40} color="white" fill="#436175" />
           )}
         </View>
-      </View>
+        {hasSale && <Text style={styles.salePill}>Sale</Text>}
+        <Image
+          source={imageSource}
+          style={styles.image}
+          resizeMode="cover"
+          onError={handleImageError}
+        />
+        <View style={styles.content}>
+          <Text style={sharedStyles.supplier} numberOfLines={1}>
+            {item.supplier || 'N/A'}
+          </Text>
+          <Text style={sharedStyles.itemName} numberOfLines={2}>
+            {item.name || 'N/A'}
+          </Text>
+          <View style={sharedStyles.priceContainer}>
+            {!item.discounted_price && item.price && (
+              <Text style={sharedStyles.price}>
+                ${parseFloat(item.price).toFixed(2)}
+              </Text>
+            )}
+            {hasSale && (
+              <Text style={sharedStyles.discountedPrice}>
+                ${parseFloat(item.discounted_price).toFixed(2)}
+              </Text>
+            )}
+            {hasSale && (
+              <Text style={sharedStyles.slashedPrice}>
+                ${parseFloat(item.price).toFixed(2)}
+              </Text>
+            )}
+          </View>
+        </View>
+      </TouchableOpacity>
       <ItemModal
         item={item}
         modalVisible={modalVisible}
