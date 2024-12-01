@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -23,11 +23,13 @@ export interface IItemCard {
 
 interface ItemCardProps {
   item: IItemCard;
+  cart: any;
+  setCart: (newCart: any) => void;
 }
 
 const { width } = Dimensions.get('window');
 const cardWidth = (width - 32 * 3) / 2; // Subtract total horizontal padding (32px * 3 for left, right, and between cards)
-export default function ItemCard({ item }: ItemCardProps) {
+export default function ItemCard({ item, cart, setCart }: ItemCardProps) {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [quantity, setQuantity] = useState(0);
 
@@ -47,50 +49,52 @@ export default function ItemCard({ item }: ItemCardProps) {
   const [imageSource, setImageSource] = React.useState({ uri: item.image });
 
   const handleImageError = (e: any) => {
-    console.log('Image error: ', e);
     setImageSource(require('../assets/no-image-icon.png'));
   };
 
   return (
     <View style={styles.card}>
-      <TouchableOpacity
-        style={styles.plusIcon}
-        onPress={() => setModalVisible(true)}
-      >
-        <PlusCircleIcon size={30} color="white" fill="#436175" />
-      </TouchableOpacity>
-      {hasSale && <Text style={styles.salePill}>Sale</Text>}
-      <Image
-        source={imageSource}
-        style={styles.image}
-        resizeMode="cover"
-        onError={handleImageError}
-      />
-      <View style={styles.content}>
-        <Text style={sharedStyles.supplier} numberOfLines={1}>
-          {item.supplier || 'N/A'}
-        </Text>
-        <Text style={sharedStyles.itemName} numberOfLines={2}>
-          {item.name || 'N/A'}
-        </Text>
-        <View style={sharedStyles.priceContainer}>
-          {!item.discounted_price && item.price && (
-            <Text style={sharedStyles.price}>
-              ${parseFloat(item.price).toFixed(2)}
-            </Text>
-          )}
-          {hasSale && (
-            <Text style={sharedStyles.discountedPrice}>
-              ${parseFloat(item.discounted_price).toFixed(2)}
-            </Text>
-          )}
-          {hasSale && (
-            <Text style={sharedStyles.slashedPrice}>
-              ${parseFloat(item.price).toFixed(2)}
-            </Text>
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <View style={styles.plusIcon}>
+          {quantity ? (
+            <Text style={sharedStyles.circleText}>{quantity}</Text>
+          ) : (
+            <PlusCircleIcon size={40} color="white" fill="#436175" />
           )}
         </View>
-      </View>
+        {hasSale && <Text style={styles.salePill}>Sale</Text>}
+        <Image
+          source={imageSource}
+          style={styles.image}
+          resizeMode="cover"
+          onError={handleImageError}
+        />
+        <View style={styles.content}>
+          <Text style={sharedStyles.supplier} numberOfLines={1}>
+            {item.supplier || 'N/A'}
+          </Text>
+          <Text style={sharedStyles.itemName} numberOfLines={2}>
+            {item.name || 'N/A'}
+          </Text>
+          <View style={sharedStyles.priceContainer}>
+            {!item.discounted_price && item.price && (
+              <Text style={sharedStyles.price}>
+                ${parseFloat(item.price).toFixed(2)}
+              </Text>
+            )}
+            {hasSale && (
+              <Text style={sharedStyles.discountedPrice}>
+                ${parseFloat(item.discounted_price).toFixed(2)}
+              </Text>
+            )}
+            {hasSale && (
+              <Text style={sharedStyles.slashedPrice}>
+                ${parseFloat(item.price).toFixed(2)}
+              </Text>
+            )}
+          </View>
+        </View>
+      </TouchableOpacity>
       <ItemModal
         item={item}
         modalVisible={modalVisible}
@@ -100,6 +104,8 @@ export default function ItemCard({ item }: ItemCardProps) {
         hasSale={hasSale}
         quantity={quantity}
         handleQuantityChange={handleQuantityChange}
+        cart={cart}
+        setCart={setCart}
       />
     </View>
   );

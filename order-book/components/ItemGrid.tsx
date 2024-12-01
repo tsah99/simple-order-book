@@ -12,7 +12,13 @@ import { IItemCard } from './ItemCard';
 
 const MemoizedItemCard = memo(ItemCard);
 
-export default function ItemGrid() {
+export default function ItemGrid({
+  cart,
+  setCart,
+}: {
+  cart: any;
+  setCart: (newCart: any) => void;
+}) {
   const [items, setItems] = useState<IItemCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +36,9 @@ export default function ItemGrid() {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      // TODO - dev/offline MODE (update to grab data from local source)
+      // response = require('../data/orders.json');
+      // const data = response;
       setItems(data);
     } catch (err) {
       setError('Failed to fetch items. Please try again later.');
@@ -58,7 +67,9 @@ export default function ItemGrid() {
   return (
     <FlatList
       data={items}
-      renderItem={({ item }) => <MemoizedItemCard item={item} />}
+      renderItem={({ item }) => (
+        <MemoizedItemCard item={item} cart={cart} setCart={setCart} />
+      )}
       keyExtractor={(item) => item.id.toString()}
       numColumns={2}
       contentContainerStyle={styles.container}
@@ -70,7 +81,12 @@ export default function ItemGrid() {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: '#9fbcd8',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: 80,
+  },
   centered: {
     flex: 1,
     justifyContent: 'center',

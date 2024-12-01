@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { Search, RefreshCw } from 'lucide-react-native';
+import { Search } from 'lucide-react-native';
 
 export default function Header() {
   return (
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     padding: 20,
+    paddingTop: 40,
     backgroundColor: '#436175',
   },
   text: {
