@@ -8,7 +8,7 @@
 
 > "Add to cart" functionality
 
-<img srg="./order-book/assets/basic-cart.png" width="300" alt="View Cart">
+<img src="./order-book/assets/basic-cart.png" width="300" alt="View Cart">
 
 > Basic "View Cart" to demonstrate persisted cart state
 
