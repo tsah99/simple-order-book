@@ -6,7 +6,11 @@
 
 <img src="./order-book/assets/order-modal.png" width="300" alt="Order Modal">
 
-> (Work in progress, "add to cart" button not yet implemented)
+> "Add to cart" functionality
+
+<img srg="./order-book/assets/basic-cart.png" width="300" alt="View Cart">
+
+> Basic "View Cart" to demonstrate persisted cart state
 
 ## Description
 

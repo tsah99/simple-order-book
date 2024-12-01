@@ -23,6 +23,8 @@ interface ItemModalProps {
   hasSale: boolean;
   quantity: number;
   handleQuantityChange: (newQuantity: number) => void;
+  cart: any;
+  setCart: (newCart: any) => void;
 }
 
 export default function ItemModal({
@@ -34,6 +36,8 @@ export default function ItemModal({
   hasSale,
   quantity,
   handleQuantityChange,
+  cart,
+  setCart,
 }: ItemModalProps) {
   const [adjustQuantity, setAdjustQuantity] = useState(quantity || 0);
 
@@ -149,6 +153,8 @@ export default function ItemModal({
                 item={item}
                 onQuantitySubmit={handleQuantityChange}
                 closeModal={handleModalClose}
+                cart={cart}
+                setCart={setCart}
               />
               <TouchableOpacity
                 style={styles.buttonClose}

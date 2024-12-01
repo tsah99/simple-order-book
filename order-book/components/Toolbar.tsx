@@ -1,41 +1,66 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {
   HomeIcon,
   NotebookText,
   ShoppingCart,
   TextSearch,
 } from 'lucide-react-native';
+import { CartObject } from '../interfaces';
 
 interface IIconWithName {
   icon: any;
   iconName: string;
+  onClick: () => void;
 }
 
-function IconWithName({ icon, iconName }: IIconWithName) {
+function IconWithName({ icon, iconName, onClick }: IIconWithName) {
   return (
-    <View style={styles.iconContainer}>
-      {icon}
-      <Text style={styles.text}>{iconName}</Text>
-    </View>
+    <TouchableOpacity onPress={onClick}>
+      <View style={styles.iconContainer}>
+        {icon}
+        <Text style={styles.text}>{iconName}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 
-export default function Toolbar() {
+export default function Toolbar({ cart }: { cart: any }) {
   return (
     <View style={styles.container}>
       <View style={styles.toolbar}>
-        <IconWithName icon={<HomeIcon style={styles.icon} />} iconName="Home" />
+        <IconWithName
+          icon={<HomeIcon style={styles.icon} />}
+          iconName="Home"
+          onClick={() => {}}
+        />
         <IconWithName
           icon={<TextSearch style={styles.icon} />}
           iconName="Browse"
+          onClick={() => {}}
         />
         <IconWithName
           icon={<NotebookText style={styles.icon} />}
           iconName="Orders"
+          onClick={() => {}}
         />
         <IconWithName
           icon={<ShoppingCart style={styles.icon} />}
           iconName="Cart"
+          onClick={() => {
+            const { items, total } = cart;
+            let alertString = 'Items\n';
+            for (const itemKey in items) {
+              const cartObject: CartObject = items[itemKey];
+              const lineTotal: number = cartObject.quantity * cartObject.price;
+              alertString += `${cartObject.name} (x${cartObject.quantity}): $${cartObject.price.toFixed(2)} each${
+                cartObject.slashedPrice
+                  ? ` (was $${cartObject.slashedPrice.toFixed(2)})`
+                  : ''
+              } - Line total: $${lineTotal.toFixed(2)}\n`;
+            }
+            alertString += `\n--\nTotal: $${total.toFixed(2)}`;
+            Alert.alert('Current cart', alertString);
+          }}
         />
       </View>
     </View>

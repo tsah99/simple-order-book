@@ -23,19 +23,18 @@ export interface IItemCard {
 
 interface ItemCardProps {
   item: IItemCard;
+  cart: any;
+  setCart: (newCart: any) => void;
 }
 
 const { width } = Dimensions.get('window');
 const cardWidth = (width - 32 * 3) / 2; // Subtract total horizontal padding (32px * 3 for left, right, and between cards)
-export default function ItemCard({ item }: ItemCardProps) {
-  // TODO: pass through "add to cart" function from ItemGrid component
+export default function ItemCard({ item, cart, setCart }: ItemCardProps) {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [quantity, setQuantity] = useState(0);
 
   const handleQuantityChange = (newQuantity: number) => {
-    console.log(`New quantity: ${newQuantity}`);
     setQuantity(newQuantity);
-    // add to cart function here
   };
 
   // ensure a price is present
@@ -55,10 +54,8 @@ export default function ItemCard({ item }: ItemCardProps) {
 
   return (
     <View style={styles.card}>
-      <TouchableOpacity
-        onPress={() => setModalVisible(true)}
-      >
-        <View style={styles.plusIcon} >
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <View style={styles.plusIcon}>
           {quantity ? (
             <Text style={sharedStyles.circleText}>{quantity}</Text>
           ) : (
@@ -107,6 +104,8 @@ export default function ItemCard({ item }: ItemCardProps) {
         hasSale={hasSale}
         quantity={quantity}
         handleQuantityChange={handleQuantityChange}
+        cart={cart}
+        setCart={setCart}
       />
     </View>
   );

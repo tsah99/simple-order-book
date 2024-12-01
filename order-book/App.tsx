@@ -2,14 +2,18 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { Header, ItemGrid } from './components';
 import Toolbar from './components/Toolbar';
+import { useState } from 'react';
+import { Cart } from './interfaces';
 
 export default function App() {
+  const [cart, setCart] = useState<Cart>({ items: {}, total: 0.0 });
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <Header />
-      <ItemGrid />
-      <Toolbar />
+      <ItemGrid cart={cart} setCart={setCart} />
+      <Toolbar cart={cart} />
     </View>
   );
 }

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { IItemCard } from './ItemCard';
+import { CartObject } from '../interfaces';
 
 const { width } = Dimensions.get('window');
 
@@ -15,15 +16,46 @@ export default function AddToCartButton({
   item,
   onQuantitySubmit,
   closeModal,
+  cart,
+  setCart,
 }: {
   quantity: number;
   previousQuantity: number;
   item: IItemCard;
   onQuantitySubmit: (quantity: number) => void;
   closeModal: () => void;
+  cart: any;
+  setCart: (newCart: any) => void;
 }) {
   const handleSubmit = () => {
     onQuantitySubmit(quantity);
+    let cartObject: CartObject;
+    let newTotal = cart.total;
+    if (item.id in cart.items) {
+      console.log('was in cart');
+      cartObject = cart.items[item.id];
+      newTotal -= cartObject.quantity * cartObject.price;
+    }
+    cartObject = {
+      id: item.id,
+      name: item.name,
+      price: item.discounted_price
+        ? parseFloat(item.discounted_price)
+        : parseFloat(item.price),
+      slashedPrice: item.discounted_price ? parseFloat(item.price) : undefined,
+      quantity: quantity,
+    };
+    if (quantity === 0) {
+      delete cart.items[item.id];
+      setCart({ items: cart.items, total: newTotal });
+    } else {
+      newTotal += cartObject.quantity * cartObject.price;
+      setCart({
+        items: { ...cart.items, [item.id]: cartObject },
+        total: newTotal,
+      });
+    }
+
     console.log(`Submitting ${quantity} of item ${item.id} to cart`);
     if (previousQuantity === 0) {
       Alert.alert(
@@ -38,10 +70,6 @@ export default function AddToCartButton({
     }
     closeModal();
   };
-
-  console.log(
-    `Previous quantity: ${previousQuantity}, Current quantity: ${quantity}`
-  );
 
   return (
     <TouchableOpacity
